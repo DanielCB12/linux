@@ -1,0 +1,71 @@
+Si quieres pasar de CentOS a Rocky Linux, que es una distribución binariamente compatible con Red Hat Enterprise Linux (RHEL) y la que lo sustituye en el ámbito de las distribuciones de servidores, debes seguir los pasos siguientes:
+
+Paso 1. Haz copias de seguridad de todo.
+
+Antes de hacer nada de calibre para cambiar el sistema, asegúrate de hacer copias de seguridad de forma completa con tu servidor o tu máquina, porque puede tener inconvenientes y cambios de bulto el procedimiento de migración.
+
+Paso 2. Instalar el script de migración.
+
+Rocky Linux incluye una herramienta para migrar que se llama migrate2rocky y que simplifica el paso desde CentOS hasta Rocky Linux. 
+  
+    paso 2.1 Instalar el repositorio EPEL si no lo tienes ya.
+
+     sudo yum install epel-release
+    
+    paso 2.2 Descargar el script migrate2rocky.
+
+      curl -o /tmp/migrate2rocky.sh https://raw.githubusercontent.com/rocky-linux/rocky-tools/main/migrate2rocky.sh
+    
+    paso 2.3 Dar permisos de ejecución al script.
+
+     chmod +x /tmp/migrate2rocky.sh
+       
+Paso 3. Ejecutar el script de migración.
+
+     sudo /tmp/migrate2rocky.sh -r
+
+   Esto iniciará el proceso de migración. Durante la ejecución, el script descargará los repositorios y las claves de Rocky Linux, actualizará los paquetes y cambiará los repositorios de CentOS a los de Rocky Linux.
+
+Paso 4. Verificar la migración
+
+  Una vez que el script haya terminado, es importante verificar que el sistema se haya migrado correctamente a Rocky Linux.
+    
+      paso 4.1. Verifica la versión de Rocky Linux.
+
+          cat /etc/os-release
+  
+       Esto debería mostrar información sobre Rocky Linux en lugar de CentOS.
+  
+      paso 4.2. Reiniciar el sistema . Después de la migración, reinicia el sistema para aplicar todos los cambios de configuración.
+
+       sudo reboot
+
+Paso 5. Verificar la estabilidad del sistema.
+
+  Una vez reiniciado el sistema, asegúrate de que todos los servicios estén funcionando correctamente y de que no haya problemas. Es recomendable revisar los logs del sistema para detectar posibles errores.
+     journalctl -xe
+
+Paso 6. Limpiar el sistema.
+  Después de verificar que todo está funcionando correctamente, puedes eliminar cualquier paquete innecesario y limpiar el sistema.
+      sudo yum clean all
+      sudo rm -f /tmp/migrate2rocky.sh
+
+ 
+  
+
+
+
+
+        
+     
+
+
+  
+
+       
+
+     
+
+
+ 
+      
